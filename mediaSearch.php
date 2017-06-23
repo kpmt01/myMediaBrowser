@@ -23,7 +23,7 @@
 	}
 
 
-	function dirToArray($dir='C:\wamp\www\deneme') {
+	function dirToArray($dir='.') {
 	   $result = array();
 	   $cdir = scandir($dir);
 	   foreach ($cdir as $key => $value)
@@ -45,6 +45,27 @@
 	   }
 	   return $result;
 	}
+	function arraySearch($saman, $igne){
+		$haystack = array();
+		$value = arraySearchMoto($saman, $igne);
+		$value = rtrim($value,"-_-*/-");
+		$haystack = explode("-_-*/-",$value);
+		return $haystack;
+	}
+	function arraySearchMoto($saman, $igne){
+	   	$result = "";
+		foreach ($saman as $key => $value):
+			if(is_array($value) and count($value)>0):
+				$result .= arraySearchMoto($value,$igne);
+			else:
+				if($value === $igne):
+					$result .= $before."-_-*/-";
+				endif;
+				$before = $value;
+			endif;
+		endforeach;
+   		return $result;
+	}
 ?>
 
 
@@ -64,6 +85,9 @@
 			<?php
 				$json = dirToArray();
 				echo "<div style='color:gray;'>",print_r($json),"</div><hr>";
+
+				$son = arraySearch($json,"application/octet-stream");
+				echo "<div style='color:green;'>",print_r($son),"</div><hr>";
 			?>
 		</pre>
 	</body>
