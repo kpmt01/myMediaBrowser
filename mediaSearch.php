@@ -21,6 +21,27 @@
 		}
 		return $json;
 	}
+
+
+	function dirToArray($dir='C:\wamp\www\deneme') {
+	   $result = array();
+	   $cdir = scandir($dir);
+	   foreach ($cdir as $key => $value)
+	   {
+	      if (!in_array($value,array(".","..")))
+	      {
+	         if (is_dir($dir . DIRECTORY_SEPARATOR . $value))
+	         {
+	            $result[$value] = dirToArray($dir . DIRECTORY_SEPARATOR . $value);
+	         }
+	         else
+	         {
+	            $result[] = $dir. DIRECTORY_SEPARATOR .$value." ****|**** ".mime_content_type($dir. DIRECTORY_SEPARATOR . $value);
+	         }
+	      }
+	   }
+	   return $result;
+	}
 ?>
 
 
@@ -31,9 +52,16 @@
 		<title>Mustafa Türkmen</title>
 	</head>
 	<body>
-	<?php
-		$json = fileSearch();
-		echo "<span style='color:gray;'>".$json."</span>";
-	?>
+		<?php
+			//$json = fileSearch();
+			//echo "<span style='color:gray;'>".$json."</span>";
+		?>
+	<hr>
+		<pre>
+			<?php
+				$json = dirToArray();
+				echo "<span style='color:gray;'>",print_r($json),"</span>";
+			?>
+		</pre>
 	</body>
 </html>
