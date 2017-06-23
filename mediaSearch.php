@@ -22,6 +22,9 @@
 		return $json;
 	}
 
+	function isThereArray2Array(){
+
+	}
 
 	function dirToArray($dir='.') {
 	   $result = array();
@@ -62,6 +65,7 @@
 					$result .= $before."-_-*/-";
 				endif;
 				$before = $value;
+				echo $key.$value."<br>";
 			endif;
 		endforeach;
    		return $result;
@@ -86,9 +90,13 @@
 				$json = dirToArray();
 				echo "<div style='color:gray;'>",print_r($json),"</div><hr>";
 
-				$son = arraySearch($json,"application/octet-stream");
+				$son = arraySearch($json,"video/mp4");
 				echo "<div style='color:green;'>",print_r($son),"</div><hr>";
 			?>
 		</pre>
+		<video width="320" height="240" controls>
+			<source src="<?php echo $son[0]; ?>" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
 	</body>
 </html>
