@@ -36,7 +36,10 @@
 	         }
 	         else
 	         {
-	            $result[] = $dir. DIRECTORY_SEPARATOR .$value." ****|**** ".mime_content_type($dir. DIRECTORY_SEPARATOR . $value);
+	            $result[] = array(
+					"yol"=>$dir. DIRECTORY_SEPARATOR .$value,
+					"mime"=>mime_content_type($dir. DIRECTORY_SEPARATOR . $value)
+				);
 	         }
 	      }
 	   }
@@ -60,7 +63,7 @@
 		<pre>
 			<?php
 				$json = dirToArray();
-				echo "<span style='color:gray;'>",print_r($json),"</span>";
+				echo "<div style='color:gray;'>",print_r($json),"</div><hr>";
 			?>
 		</pre>
 	</body>
